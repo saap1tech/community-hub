@@ -1,43 +1,42 @@
 const express = require("express");
+const helmet = require("helmet");
 const cors = require("cors");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
+const topicRoutes = require("./routes/topicRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 dotenv.config();
 
-const {
-  register,
-  login,
-  verifyEmail,
-  forgotPassword,
-  resetPassword,
-} = require("./controllers/authController");
-const {
-  getProfile,
-  addExperience,
-  addEducation,
-  addSkill,
-  addProject,
-} = require("./controllers/profileController");
-const protect = require("./middlewares/authMiddleware");
+const PORT = process.env.PORT || 3001;
+
+connectDB();
 
 const app = express();
-app.use(cors());
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(morgan("dev"));
+app.use(helmet());
+app.use(fileUpload({ useTempFiles: true, tempFileDir: "./tmp" }));
+app.use(
+  cors({
+    origin: process.env.REACT_APP_URL,
+    credentials: true,
+  })
+);
 
-const router = express.Router();
+app.use("/auth", authRoutes);
+app.use("/topics", topicRoutes);
+app.use("/comments", commentRoutes);
+app.use("/user", userRoutes);
 
-router.post("/register", register);
-router.post("/login", login);
-router.get("/verify-email", verifyEmail);
-router.post("/forgot-password", forgotPassword);
-router.post("/reset-password", resetPassword);
-router.get("/profile", protect, getProfile);
-router.post("/profile/experience", protect, addExperience);
-router.post("/profile/education", protect, addEducation);
-router.post("/profile/skill", protect, addSkill);
-router.post("/profile/project", protect, addProject);
-
-app.use("/", router);
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log("Server is running!");
+});

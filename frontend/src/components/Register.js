@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Email validation for specific domains
     const emailENSNN = /^[a-zA-Z0-9._%+-]+@student\.ensnn\.dz$/;
     const emailNSAST = /^[a-zA-Z0-9._%+-]+@student\.ensnn\.dz$/;
     const emailENSIA = /^[a-zA-Z0-9._%+-]+@ensia\.edu\.dz$/;
@@ -27,6 +30,7 @@ const Register = () => {
       setErrorMessage("Your email is not accepted");
       return;
     }
+
     if (password.length < 7) {
       setErrorMessage("Password must be at least 7 characters long");
       return;
@@ -35,15 +39,17 @@ const Register = () => {
     try {
       setErrorMessage("");
 
-      await axios.post("/register", {
-        name,
+      await axios.post("/auth/register", {
+        username,
         email,
         password,
-        profile_picture: "",
+        firstName,
+        lastName,
       });
 
       navigate("/verification");
     } catch (error) {
+      console.error(error);
       setErrorMessage("Registration failed. Please try again.");
     }
   };
@@ -61,14 +67,40 @@ const Register = () => {
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block mb-1 text-gray-400">
-              Name
+            <label htmlFor="username" className="block mb-1 text-gray-400">
+              Username
             </label>
             <input
               type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#38b2ac] text-white"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="firstName" className="block mb-1 text-gray-400">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="w-full p-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#38b2ac] text-white"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="lastName" className="block mb-1 text-gray-400">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               className="w-full p-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#38b2ac] text-white"
               required
             />
