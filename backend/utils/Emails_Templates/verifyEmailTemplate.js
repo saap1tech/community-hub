@@ -174,7 +174,7 @@ module.exports = (user, token) => `
                                                                     class="v-font-size"
                                                                     style="margin: 0px; color: #546cfb; line-height: 140%; text-align: center; word-wrap: break-word; font-weight: normal; font-family: roboto; font-size: 36px;"
                                                                 >
-                                                                    <strong>Weclome To Community HUB!</strong>
+                                                                    <strong>Weclome To ONetwork!</strong>
                                                                 </h1>
                                                             </td>
                                                         </tr>
@@ -360,7 +360,7 @@ module.exports = (user, token) => `
                                                                     </p>
                                                                     <p style="font-size: 14px; line-height: 190%;">
                                                                         <span style="font-size: 18px; line-height: 34.2px;">
-                                                                            <strong><span style="line-height: 34.2px; font-size: 18px;">Community HUB Admin.</span></strong>
+                                                                            <strong><span style="line-height: 34.2px; font-size: 18px;">ONetwork Owner.</span></strong>
                                                                         </span>
                                                                         <span style="font-size: 16px; line-height: 30.4px;"></span>
                                                                     </p>
@@ -794,7 +794,7 @@ module.exports = (user, token) => `
                                                             <td class="v-container-padding-padding" style="overflow-wrap: break-word; word-break: break-word; padding: 10px; font-family: roboto;" align="left">
                                                                 <div style="color: #908f8f; line-height: 190%; text-align: center; word-wrap: break-word;">
                                                                     <p style="font-size: 14px; line-height: 190%;">
-                                                                        © 2023 Community HUB. All Rights Reserved.
+                                                                        © 2023 ONetwork Forum. All Rights Reserved.
                                                                     </p>
                                                                 </div>
                                                             </td>

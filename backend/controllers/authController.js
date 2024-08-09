@@ -26,7 +26,7 @@ module.exports = {
           message: "An account already exists with this email!",
         });
       }
-      existingUser = null; 
+      existingUser = null;
       existingUser = await User.findOne({ username }, { __v: 0, password: 0 });
       if (existingUser) {
         return res.status(400).json({
@@ -34,7 +34,7 @@ module.exports = {
         });
       }
       delete existingUser;
-      const hashedPassword =  bcrypt.hashSync(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({
         firstName: firstName,
         lastName: lastName,
