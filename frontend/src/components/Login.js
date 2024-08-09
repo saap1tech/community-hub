@@ -10,7 +10,6 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post("/auth/login", {
         email,
@@ -29,8 +28,10 @@ const Login = ({ onLogin }) => {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
-      setErrorMessage("Login failed. Please try again.");
+      console.log("Error response:", error.response);
+      setErrorMessage(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
     }
   };
 

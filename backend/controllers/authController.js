@@ -70,7 +70,7 @@ module.exports = {
       });
     }
     try {
-      const userExisted = await User.findOne({ email });
+      const userExisted = await User.findOne({ email:email });
       if (!userExisted) {
         return res.status(400).json({
           message: "No such user with this email!",
